@@ -1,9 +1,9 @@
 node{
-    def mavenHome = tool name: 'maven3.9.4'
+    def mavenHome = tool name: 'maven3.9.6'
     stage('1.CloneCode'){
         //Jenkins running on a Linux system  
         //sh "git clone https://github.com/LandmakTechnology/maven-web-application"
-        git "https://github.com/LandmakTechnology/maven-web-application"
+        git "https://github.com/Sammyoj10/Maven-web-app"
         //Jenkins running on a windows system
         //bat "git clone https://github.com/LandmakTechnology/maven-web-application"  
     }
@@ -12,7 +12,7 @@ node{
     }
 /*  
     stage('3.CodeQuality'){
-        //sh "${mavenHome}/bin/mvn sonar:sonar"
+        sh "${mavenHome}/bin/mvn sonar:sonar"
         //edit pom.xml propertiesTAG with SonarQube server details
     }
     stage('4.UploadArtifacts'){
