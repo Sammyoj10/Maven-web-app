@@ -8,9 +8,9 @@ node{
         //bat "git clone https://github.com/LandmakTechnology/maven-web-application"  
     }
     stage('2.mvnBuild'){
-        sh "mvn clean package"
+        sh "mvn package"
     }
-/*  
+ 
     stage('3.CodeQuality'){
         sh "mvn sonar:sonar"
         //edit pom.xml propertiesTAG with SonarQube server details
@@ -53,8 +53,7 @@ Regards,
 Landmark Technologies ''', recipientProviders: [buildUser(), contributor(), developers(), requestor()], subject: 'build and deployment status', to: 'mylandmarktech@gmail.com'
 
     }
-
-*/ 
+ 
 //   
 
 }
