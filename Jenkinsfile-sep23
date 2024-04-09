@@ -8,11 +8,11 @@ node{
         //bat "git clone https://github.com/LandmakTechnology/maven-web-application"  
     }
     stage('2.mvnBuild'){
-        sh "${mavenHome}/bin/mvn clean package"
+        sh "mvn clean package"
     }
 /*  
     stage('3.CodeQuality'){
-        sh "${mavenHome}/bin/mvn sonar:sonar"
+        sh "mvn sonar:sonar"
         //edit pom.xml propertiesTAG with SonarQube server details
     }
     stage('4.UploadArtifacts'){
