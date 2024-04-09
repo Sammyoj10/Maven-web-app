@@ -1,0 +1,76 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('1. Clone Code') {
+            steps {
+                git url: 'https://github.com/Sammyoj10/Maven-web-app'
+            }
+        }
+        
+        stage('2. mvn Build') {
+            steps {
+                sh "mvn package"
+            }
+        }
+        
+        stage('3. Code Quality') {
+            steps {
+                sh "mvn sonar:sonar"
+                // Edit pom.xml propertiesTAG with SonarQube server details
+            }
+        }
+        
+        stage('4. Upload Artifacts') {
+            steps {
+                // Edit pom.xml distributionManagement TAG with repository details
+                // Edit settings.xml with nexus-user login credentials
+            }
+        }
+        
+        stage('5. Deploy to UAT') {
+            steps {
+                // Use deploy-to-container plugin via pipeline syntax
+                // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target/*war'
+                // Deploying [/var/lib/jenkins/workspace/tesla-app-pipeline/target/tesla.war]
+            }
+        }
+        
+        stage('6. Manual Approval') {
+            steps {
+                echo 'Please review the application performance'
+                // timeout(time:600, unit:'MINUTES') {
+                //     input message: 'Application ready for deployment, Please review and approve'
+                // }
+            }
+        }
+        
+        stage('7. Deploy to Prod') {
+            steps {
+                echo 'Deploy application to the customers/production'
+                // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target/*war'
+            }
+        }
+        
+        stage('8. APM') {
+            steps {
+                echo 'Monitoring and observation and alerting'
+                echo 'Application performance Monitoring in progress'
+            }
+        }
+        
+        stage('9. Email Notification') {
+            steps {
+                echo 'Notify the team for unusual occurrences'
+                echo 'Notify the team if the applications are down'
+                echo 'Notify the team if the latency is higher than expected'
+                emailext body: '''Hi Team,
+
+The build and Deployment status for tesla-app follows.
+
+Regards,
+Landmark Technologies ''', recipientProviders: [buildUser(), contributor(), developers(), requestor()], subject: 'Build and Deployment Status', to: 'mylandmarktech@gmail.com'
+            }
+        }
+    }
+}
