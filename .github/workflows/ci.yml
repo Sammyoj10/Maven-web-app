@@ -32,10 +32,3 @@ jobs:
 
     - name: Run tests
       run: mvn test
-
-    - name: Publish to Nexus
-      run: |
-        mvn deploy -DskipTests -DaltDeploymentRepository=nexus::default::http://54.146.69.39:8081/repository/maven-snapshots/
-      env:
-        MAVEN_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
