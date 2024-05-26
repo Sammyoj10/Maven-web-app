@@ -24,8 +24,5 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - name: Install dependencies
-      run: mvn install --settings settings.xml
-
     - name: Build with Maven
       run: mvn -B deploy --file pom.xml
