@@ -94,12 +94,13 @@
 	</dependencies>
 	
 	<distributionManagement>
+		<!--
 	    <repository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Releases Nexus Repository</name>
 	      <url>http://3.75.238.209:8081/repository/git-nexus/</url>
 	    </repository>
-	    
+	    -->
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Snapshot Nexus Repository </name>
