@@ -29,6 +29,24 @@
 
 	</properties>
 
+	<project>
+  		<properties>
+    			<sonar.projectKey>my_project_key</sonar.projectKey>
+   			<sonar.projectName>My Project Name</sonar.projectName>
+    			<sonar.projectVersion>1.0</sonar.projectVersion>
+  		</properties>
+  
+  		<build>
+    			<plugins>
+      				<plugin>
+        				<groupId>org.sonarsource.scanner.maven</groupId>
+        				<artifactId>sonar-maven-plugin</artifactId>
+        				<version>4.0.0.4121</version>
+      				</plugin>
+    			</plugins>
+  		</build>
+	</project>
+
 	<dependencies>
 		
 		<dependency>
