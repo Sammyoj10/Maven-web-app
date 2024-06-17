@@ -97,14 +97,14 @@
 		<!--
 	    <repository>
 	      <id>nexus</id>
-	      <name>Landmark Technologies Releases Nexus Repository</name>
-	      <url>http://54.86.126.150:8081/repository/maven-releases/</url>
+	      <name>SammyOjay Releases Nexus Repository</name>
+	      <url>http://localhost:8081/repository/maven-releases/</url>
 	    </repository>
 	    -->
 	    <snapshotRepository>
 	      <id>nexus</id>
-	      <name>Landmark Technologies Snapshot Nexus Repository </name>
-	      <url>http://54.86.126.150:8081/repository/maven-snapshots/</url>
+	      <name>SammyOjay Snapshot Nexus Repository </name>
+	      <url>http://localhost:8081/repository/maven-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
