@@ -31,8 +31,8 @@
 
 	<project>
   		<properties>
-    			<sonar.projectKey>my_project_key</sonar.projectKey>
-   			<sonar.projectName>My Project Name</sonar.projectName>
+    			<sonar.projectKey>com.mt:maven-web-application</sonar.projectKey>
+   			<sonar.projectName>maven-web-application</sonar.projectName>
     			<sonar.projectVersion>1.0</sonar.projectVersion>
   		</properties>
   
