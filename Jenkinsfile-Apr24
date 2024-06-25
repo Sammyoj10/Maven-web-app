@@ -1,32 +1,36 @@
 pipeline {
     agent any
     environment {
-        Maven_Home = tool name: 'Maven 3.9.6'
+        MAVEN_HOME = tool name: 'Maven 3.9.6'
     }
     
     stages {
         stage('1. Clone Code') {
             steps {
+                // Cloning the repository
                 git url: "https://github.com/Sammyoj10/Maven-web-app.git"
             }
         }
         
         stage('2. mvn Build') {
             steps {
-                sh "${Maven_Home}/bin/mvn clean package"
+                // Building the project using Maven
+                bat "${env.MAVEN_HOME}\\bin\\mvn clean package"
             }
         }
         
         stage('3. Code Quality') {
             steps {
-                sh "${Maven_Home}/bin/mvn sonar:sonar"
+                // Running SonarQube analysis
+                bat "${env.MAVEN_HOME}\\bin\\mvn sonar:sonar"
                 // Ensure SonarQube server details are configured in the pom.xml
             }
         }
         
         stage('4. Upload Artifacts') {
             steps {
-                sh "${Maven_Home}/bin/mvn deploy"
+                // Uploading artifacts to the repository
+                bat "${env.MAVEN_HOME}\\bin\\mvn deploy"
                 // Ensure repository details are configured in the pom.xml
                 // Ensure credentials are configured in settings.xml
             }
@@ -34,8 +38,8 @@ pipeline {
         
         stage('5. Deploy to UAT') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'Tomcatlogin', path: '', url: 'http://localhost:8088/')], contextPath: null, onFailure: false, war: 'target/maven-web-app.war'
-                // Ensure the WAR file path is correct relative to the workspace
+                // Deploying the WAR file to Tomcat
+                deploy adapters: [tomcat9(credentialsId: 'Tomcatlogin', path: '', url: 'http://localhost:8088/')], contextPath: null, onFailure: false, war: 'target\\maven-web-app.war'
             }
         }
         
@@ -48,11 +52,12 @@ pipeline {
             }
         }
         
-        // Uncomment the following stage if you want to deploy to production
         /*
         stage('7. Deploy to Prod') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target/maven-web-app.war'
+                echo 'Deploy application to the customers/production'
+                // Uncomment the following line and configure for production deployment
+                // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target\\maven-web-app.war'
             }
         }
         */
@@ -68,7 +73,7 @@ pipeline {
             steps {
                 emailext body: '''Hi Team,
 
-The build and deployment status for the tesla-app is as follows.
+The build and deployment status for the Maven web app is as follows.
 
 Regards,
 Landmark Technologies''', 
