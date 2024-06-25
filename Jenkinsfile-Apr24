@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        Maven_Home = tool name: 'Maven 3.9.6'
+    }
     
     stages {
         stage('1. Clone Code') {
@@ -10,48 +13,50 @@ pipeline {
         
         stage('2. mvn Build') {
             steps {
-                sh "mvn package"
+                sh "${Maven_Home}/bin/mvn clean package"
             }
         }
         
         stage('3. Code Quality') {
             steps {
-                sh "mvn sonar:sonar"
-                // Edit pom.xml propertiesTAG with SonarQube server details
+                sh "${Maven_Home}/bin/mvn sonar:sonar"
+                // Ensure SonarQube server details are configured in the pom.xml
             }
         }
         
         stage('4. Upload Artifacts') {
             steps {
-                sh "mvn deploy"
-                // Edit pom.xml distributionManagement TAG with repository details
-                // Edit settings.xml with nexus-user login credentials
+                sh "${Maven_Home}/bin/mvn deploy"
+                // Ensure repository details are configured in the pom.xml
+                // Ensure credentials are configured in settings.xml
             }
         }
         
         stage('5. Deploy to UAT') {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'Tomcatlogin', path: '', url: 'http://localhost:8088/')], contextPath: null, onFailure: false, war: 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\firstproject_javaWA\\target\\maven-web-app.war'
-                // Deploying [C:\ProgramData\Jenkins\.jenkins\workspace\firstproject_javaWA\target\maven-web-app.war]
+                deploy adapters: [tomcat9(credentialsId: 'Tomcatlogin', path: '', url: 'http://localhost:8088/')], contextPath: null, onFailure: false, war: 'target/maven-web-app.war'
+                // Ensure the WAR file path is correct relative to the workspace
             }
         }
         
         stage('6. Manual Approval') {
             steps {
                 echo 'Please review the application performance'
-                timeout(time:600, unit:'MINUTES') {
-                input message: 'Application ready for deployment, Please review and approve'
+                timeout(time: 600, unit: 'MINUTES') {
+                    input message: 'Application ready for deployment, Please review and approve'
                 }
             }
         }
+        
+        // Uncomment the following stage if you want to deploy to production
         /*
         stage('7. Deploy to Prod') {
             steps {
-                echo 'Deploy application to the customers/production'
-                // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target/*war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target/maven-web-app.war'
             }
         }
         */
+        
         stage('8. APM') {
             steps {
                 echo 'Monitoring and observation and alerting'
@@ -61,15 +66,15 @@ pipeline {
         
         stage('9. Email Notification') {
             steps {
-                echo 'Notify the team for unusual occurrences'
-                echo 'Notify the team if the applications are down'
-                echo 'Notify the team if the latency is higher than expected'
                 emailext body: '''Hi Team,
 
-The build and Deployment status for tesla-app follows.
+The build and deployment status for the tesla-app is as follows.
 
 Regards,
-Landmark Technologies ''', recipientProviders: [buildUser(), contributor(), developers(), requestor()], subject: 'Build and Deployment Status', to: 'sammyagwam@gmail.com'
+Landmark Technologies''', 
+                recipientProviders: [buildUser(), requestor()], 
+                subject: 'Build and Deployment Status', 
+                to: 'sammyagwam@gmail.com'
             }
         }
     }
