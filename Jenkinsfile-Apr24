@@ -10,7 +10,7 @@ pipeline {
         
         stage('2. mvn Build') {
             steps {
-                sh "mvn package"
+                sh "mvn clean package"
             }
         }
         
@@ -23,6 +23,7 @@ pipeline {
         
         stage('4. Upload Artifacts') {
             steps {
+                sh "mvn deploy"
                 // Edit pom.xml distributionManagement TAG with repository details
                 // Edit settings.xml with nexus-user login credentials
             }
@@ -30,28 +31,27 @@ pipeline {
         
         stage('5. Deploy to UAT') {
             steps {
-                // Use deploy-to-container plugin via pipeline syntax
-                // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target/*war'
-                // Deploying [/var/lib/jenkins/workspace/tesla-app-pipeline/target/tesla.war]
+                deploy adapters: [tomcat9(credentialsId: 'Tomcatlogin', path: '', url: 'http://localhost:8088/')], contextPath: null, onFailure: false, war: 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\firstproject_javaWA\\target\\maven-web-app.war'
+                // Deploying [C:\ProgramData\Jenkins\.jenkins\workspace\firstproject_javaWA\target\maven-web-app.war]
             }
         }
         
         stage('6. Manual Approval') {
             steps {
                 echo 'Please review the application performance'
-                // timeout(time:600, unit:'MINUTES') {
-                //     input message: 'Application ready for deployment, Please review and approve'
-                // }
+                timeout(time:600, unit:'MINUTES') {
+                input message: 'Application ready for deployment, Please review and approve'
+                }
             }
         }
-        
+        /*
         stage('7. Deploy to Prod') {
             steps {
                 echo 'Deploy application to the customers/production'
                 // deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://34.219.51.216:8177/')], contextPath: null, war: 'target/*war'
             }
         }
-        
+        */
         stage('8. APM') {
             steps {
                 echo 'Monitoring and observation and alerting'
@@ -69,7 +69,7 @@ pipeline {
 The build and Deployment status for tesla-app follows.
 
 Regards,
-Landmark Technologies ''', recipientProviders: [buildUser(), contributor(), developers(), requestor()], subject: 'Build and Deployment Status', to: 'mylandmarktech@gmail.com'
+Landmark Technologies ''', recipientProviders: [buildUser(), contributor(), developers(), requestor()], subject: 'Build and Deployment Status', to: 'sammyagwam@gmail.com'
             }
         }
     }
