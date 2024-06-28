@@ -1,8 +1,8 @@
-pipeline {
-    agent any
+agent any
     environment {
         MAVEN_HOME = tool name: 'Maven 3.9.8'
     }
+    
     stages {
         stage('1. Clone Code') {
             steps {
@@ -28,13 +28,10 @@ pipeline {
         
         stage('4. Upload Artifacts') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'nexus', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD')]) {
-    bat """
-        mvn deploy -DaltDeploymentRepository=SammySnapshot::default::http://localhost:8081/repository/SammySnapshot/ \
-        -DrepositoryId=SammySnapshot -Dnexus.username=${NEXUS_USERNAME} -Dnexus.password=${NEXUS_PASSWORD}
-    """
-}
-                }
+                // Uploading artifacts to the repository
+                bat "${env.MAVEN_HOME}\\bin\\mvn deploy"
+                // Ensure repository details are configured in the pom.xml
+                // Ensure credentials are configured in settings.xml
             }
         }
         
@@ -84,4 +81,5 @@ Landmark Technologies''',
                 to: 'sammyagwam@gmail.com'
             }
         }
+    }
 }
