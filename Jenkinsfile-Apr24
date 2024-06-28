@@ -1,9 +1,8 @@
 pipeline {
     agent any
     environment {
-        MAVEN_HOME = tool name: 'Maven 3.9.6'
+        MAVEN_HOME = tool name: 'Maven 3.9.8'
     }
-    
     stages {
         stage('1. Clone Code') {
             steps {
@@ -29,10 +28,10 @@ pipeline {
         
         stage('4. Upload Artifacts') {
             steps {
-                // Uploading artifacts to the repository
-                bat "${env.MAVEN_HOME}\\bin\\mvn deploy"
-                // Ensure repository details are configured in the pom.xml
-                // Ensure credentials are configured in settings.xml
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+                    // Uploading artifacts to the repository
+                    bat "${env.MAVEN_HOME}\\bin\\mvn deploy -DaltDeploymentRepository=SammySnapshot::default::http://localhost:8081/repository/SammySnapshot/ -DrepositoryId=SammySnapshot -Dnexus.username=$NEXUS_USERNAME -Dnexus.password=$NEXUS_PASSWORD"
+                }
             }
         }
         
