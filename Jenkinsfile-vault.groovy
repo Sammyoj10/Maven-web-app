@@ -26,33 +26,33 @@ pipeline {
             }
         }
         
-        stage('Upload Artifacts') {
-    steps {
-        withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
-            // Uploading artifacts to the repository
-            bat """
-                ${env.MAVEN_HOME}\\bin\\mvn deploy -DaltDeploymentRepository=SammySnapshot::default::http://localhost:8081/repository/SammySnapshot/ \
-                -DrepositoryId=SammySnapshot -Dnexus.username=${NEXUS_USERNAME} -Dnexus.password=${NEXUS_PASSWORD}
-            """
-        }
-    }
-}
+//         stage('Upload Artifacts') {
+//     steps {
+//         withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+//             // Uploading artifacts to the repository
+//             bat """
+//                 ${env.MAVEN_HOME}\\bin\\mvn deploy -DaltDeploymentRepository=SammySnapshot::default::http://localhost:8081/repository/SammySnapshot/ \
+//                 -DrepositoryId=SammySnapshot -Dnexus.username=${NEXUS_USERNAME} -Dnexus.password=${NEXUS_PASSWORD}
+//             """
+//         }
+//     }
+// }
         
-        stage('5. Deploy to UAT') {
-            steps {
-                // Deploying the WAR file to Tomcat
-                deploy adapters: [tomcat9(credentialsId: 'Tomcatlogin', path: '', url: 'http://localhost:8088/')], contextPath: null, onFailure: false, war: 'target\\maven-web-app.war'
-            }
-        }
+//         stage('5. Deploy to UAT') {
+//             steps {
+//                 // Deploying the WAR file to Tomcat
+//                 deploy adapters: [tomcat9(credentialsId: 'Tomcatlogin', path: '', url: 'http://localhost:8088/')], contextPath: null, onFailure: false, war: 'target\\maven-web-app.war'
+//             }
+//         }
         
-        stage('6. Manual Approval') {
-            steps {
-                echo 'Please review the application performance'
-                timeout(time: 600, unit: 'MINUTES') {
-                    input message: 'Application ready for deployment, Please review and approve'
-                }
-            }
-        }
+//         stage('6. Manual Approval') {
+//             steps {
+//                 echo 'Please review the application performance'
+//                 timeout(time: 600, unit: 'MINUTES') {
+//                     input message: 'Application ready for deployment, Please review and approve'
+//                 }
+//             }
+//         }
         
         /*
         stage('7. Deploy to Prod') {
