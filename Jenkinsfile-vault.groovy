@@ -73,7 +73,7 @@ pipeline {
         
         stage('9. Email Notification') {
             steps {
-                emailext body: '''Hi Team,
+                emailext body: '''Hi Teams,
 
 The build and deployment status for the Maven web app is as follows.
 
