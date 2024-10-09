@@ -21,9 +21,9 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://3.70.245.199:9000/</sonar.host.url>
-		<sonar.login>admin</sonar.login>
-		<sonar.password>admin</sonar.password>
+		<!-- <sonar.host.url>http://127.0.0.1:9000/</sonar.host.url> -->
+		<!-- <sonar.login>admin</sonar.login> -->
+		<!-- <sonar.password>admin</sonar.password> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -85,7 +85,7 @@
 		<!-- provided dependencies -->
 	</dependencies>
 
-	<distributionManagement>
+	<!-- <distributionManagement>
 	    <repository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Releases Nexus Repository</name>
@@ -96,7 +96,7 @@
 	      <name>Landmark Technologies Snapshot Nexus Repository</name>
 	      <url>http://localhost:8081/repository/SammySnapshot/</url>
 	    </snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 	
 	<build>
 		<finalName>maven-web-app</finalName>
