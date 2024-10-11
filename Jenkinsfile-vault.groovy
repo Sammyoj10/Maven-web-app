@@ -38,7 +38,11 @@ pipeline {
                     bat """
                         ${scannerHome}\\bin\\sonar-scanner.bat \
                         -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=%SONAR_TOKEN%
+                        -Dsonar.login=%SONAR_TOKEN% \
+                        -Dsonar.projectKey=your_project_key \
+                        -Dsonar.projectName=YourProjectName \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=path/to/your/source
                     """
                 }
             }
