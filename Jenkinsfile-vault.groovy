@@ -18,32 +18,32 @@ pipeline {
             }
         }
         
-        stage('SonarQube analysis') {
-            steps {
-                // Retrieve the SonarQube token from Vault
-                withVault(configuration: [
-                    vaultCredentialId: 'NewVaultTCred', 
-                    vaultUrl: 'http://13.60.192.49:8200'
-                ], vaultSecrets: [[
-                    path: 'secret/sonar', 
-                    secretValues: [[envVar: 'SONAR_TOKEN', vaultKey: 'token']]
-                ]]) {
-                    // Use the SonarQube environment and retrieve the scanner installation
-                    withSonarQubeEnv('SonarQubeLocal') { // Ensure the correct SonarQube server name
-                        // Dynamically retrieve the SonarQube Scanner installation
-            step {def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+       stage('SonarQube analysis') {
+    steps {
+        // Retrieve the SonarQube token from Vault
+        withVault(configuration: [
+            vaultCredentialId: 'NewVaultTCred', 
+            vaultUrl: 'http://13.60.192.49:8200'
+        ], vaultSecrets: [[
+            path: 'secret/sonar', 
+            secretValues: [[envVar: 'SONAR_TOKEN', vaultKey: 'token']]
+        ]]) {
+            // Use the SonarQube environment and retrieve the scanner installation
+            withSonarQubeEnv('SonarQubeLocal') { // Ensure the correct SonarQube server name
+                // Dynamically retrieve the SonarQube Scanner installation
+                def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
-                        // Use SonarQube Scanner, passing the token securely
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.host.url=http://localhost:9000 \
-                            -Dsonar.login=${SONAR_TOKEN}
-                        """
-                        }
-                    }
-                }
+                // Use SonarQube Scanner, passing the token securely
+                sh """
+                    ${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.login=${SONAR_TOKEN}
+                """
             }
         }
+    }
+}
+
         
 //         stage('Upload Artifacts') {
 //     steps {
