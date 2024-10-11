@@ -29,7 +29,7 @@ pipeline {
             secretValues: [[envVar: 'SONAR_TOKEN', vaultKey: 'token']]
         ]]) {
             // Use the SonarQube environment and retrieve the scanner installation
-            withSonarQubeEnv('SonarQubeLocal') { // Ensure the correct SonarQube server name
+            withSonarQubeEnv('SonarServer') { // Ensure the correct SonarQube server name
                 script {
                     // Dynamically retrieve the SonarQube Scanner installation within a script block
                     def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
