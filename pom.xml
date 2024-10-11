@@ -21,9 +21,9 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http:172.31.27.227:9000/</sonar.host.url>
-		<sonar.login>admin</sonar.login>
-		<sonar.password>admin@123</sonar.password>
+		<sonar.host.url>http://127.0.0.1:9000/</sonar.host.url>
+		<!-- <sonar.login>admin</sonar.login> -->
+		<!-- <sonar.password>admin</sonar.password> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -83,30 +83,20 @@
 		</dependency>
 		
 		<!-- provided dependencies -->
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		
 	</dependencies>
-	
-	<distributionManagement>
+
+	<!-- <distributionManagement>
 	    <repository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Releases Nexus Repository</name>
-	      <url> http://172.31.18.29:8081/repository/ebay-bts-releases/</url>
+	      <url>http://localhost:8081/repository/SammyRepo/</url>
 	    </repository>
-	    
 	    <snapshotRepository>
 	      <id>nexus</id>
-	      <name>Landmark Technologies Snapshot Nexus Repository </name>
-	      <url>http://172.31.18.29:8081/repository/ebay-bts-snapshot/</url>
+	      <name>Landmark Technologies Snapshot Nexus Repository</name>
+	      <url>http://localhost:8081/repository/SammySnapshot/</url>
 	    </snapshotRepository>
-	    
-	</distributionManagement>
+	</distributionManagement> -->
 	
 	<build>
 		<finalName>maven-web-app</finalName>
