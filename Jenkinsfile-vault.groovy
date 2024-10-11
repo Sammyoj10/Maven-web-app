@@ -42,7 +42,7 @@ pipeline {
                         -Dsonar.projectKey=your_project_key \
                         -Dsonar.projectName=YourProjectName \
                         -Dsonar.projectVersion=1.0 \
-                        -Dsonar.sources=path/to/your/source
+                        -Dsonar.sources="MWA with Vault project/src"
                     """
                 }
             }
