@@ -28,8 +28,11 @@ pipeline {
                     path: 'secret/sonar', 
                     secretValues: [[envVar: 'SONAR_TOKEN', vaultKey: 'token']]
                 ]]) {
-                    // Define the SonarQube environment and run the analysis
-                    withSonarQubeEnv('SonarServer') {
+                    // Use the SonarQube environment and retrieve the scanner installation
+                    withSonarQubeEnv('SonarQubeLocal') { // Ensure the correct SonarQube server name
+                        // Dynamically retrieve the SonarQube Scanner installation
+                        def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+
                         // Use SonarQube Scanner, passing the token securely
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
