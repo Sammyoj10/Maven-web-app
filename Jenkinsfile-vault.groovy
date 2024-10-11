@@ -31,7 +31,7 @@ pipeline {
                     // Use the SonarQube environment and retrieve the scanner installation
                     withSonarQubeEnv('SonarQubeLocal') { // Ensure the correct SonarQube server name
                         // Dynamically retrieve the SonarQube Scanner installation
-                        def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+            step {def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
                         // Use SonarQube Scanner, passing the token securely
                         sh """
@@ -39,6 +39,7 @@ pipeline {
                             -Dsonar.host.url=http://localhost:9000 \
                             -Dsonar.login=${SONAR_TOKEN}
                         """
+                        }
                     }
                 }
             }
