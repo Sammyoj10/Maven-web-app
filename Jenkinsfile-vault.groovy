@@ -35,10 +35,10 @@ pipeline {
                     def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
                     // Use SonarQube Scanner, passing the token securely
-                    sh """
-                        ${scannerHome}/bin/sonar-scanner \
+                    bat """
+                        ${scannerHome}\\bin\\sonar-scanner.bat \
                         -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=${SONAR_TOKEN}
+                        -Dsonar.login=%SONAR_TOKEN%
                     """
                 }
             }
