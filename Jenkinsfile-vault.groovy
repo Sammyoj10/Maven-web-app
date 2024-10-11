@@ -18,7 +18,6 @@ pipeline {
             }
         }
         
-        stages {
         stage('SonarQube analysis') {
             steps {
                 // Retrieve the SonarQube token from Vault
@@ -41,7 +40,6 @@ pipeline {
                 }
             }
         }
-    }
         
 //         stage('Upload Artifacts') {
 //     steps {
