@@ -49,19 +49,7 @@ pipeline {
         }
     }
 }
-        
-//         stage('Upload Artifacts') {
-//     steps {
-//         withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
-//             // Uploading artifacts to the repository
-//             bat """
-//                 ${env.MAVEN_HOME}\\bin\\mvn deploy -DaltDeploymentRepository=SammySnapshot::default::http://localhost:8081/repository/SammySnapshot/ \
-//                 -DrepositoryId=SammySnapshot -Dnexus.username=${NEXUS_USERNAME} -Dnexus.password=${NEXUS_PASSWORD}
-//             """
-//         }
-//     }
-// }
-        
+                
 //         stage('5. Deploy to UAT') {
 //             steps {
 //                 // Deploying the WAR file to Tomcat
