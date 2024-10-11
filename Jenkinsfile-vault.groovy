@@ -39,7 +39,7 @@ pipeline {
                         ${scannerHome}\\bin\\sonar-scanner.bat \
                         -Dsonar.host.url=http://localhost:9000 \
                         -Dsonar.login=%SONAR_TOKEN% \
-                        -Dsonar.projectKey="MWA with Vault" \
+                        -Dsonar.projectKey="MWA-with-Vault" \
                         -Dsonar.projectName="MWA with Vault" \
                         -Dsonar.projectVersion=1.0 \
                         -Dsonar.sources="C:/ProgramData/Jenkins/.jenkins/workspace/Declarative pipeline/MWA with Vault project/src"
