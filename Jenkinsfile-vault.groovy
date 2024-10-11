@@ -29,7 +29,7 @@ pipeline {
                     secretValues: [[envVar: 'SONAR_TOKEN', vaultKey: 'token']]
                 ]]) {
                     // Define the SonarQube environment and run the analysis
-                    withSonarQubeEnv('My SonarQube Server') {
+                    withSonarQubeEnv('SonarServer') {
                         // Use SonarQube Scanner, passing the token securely
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
