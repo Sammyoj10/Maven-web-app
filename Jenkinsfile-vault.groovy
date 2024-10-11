@@ -42,7 +42,7 @@ pipeline {
                         -Dsonar.projectKey="MWA with Vault" \
                         -Dsonar.projectName="MWA with Vault" \
                         -Dsonar.projectVersion=1.0 \
-                        -Dsonar.sources="MWA with Vault project/src"
+                        -Dsonar.sources="C:/ProgramData/Jenkins/.jenkins/workspace/Declarative pipeline/MWA with Vault project/src"
                     """
                 }
             }
