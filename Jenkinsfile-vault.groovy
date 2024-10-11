@@ -29,24 +29,20 @@ pipeline {
             secretValues: [[envVar: 'SONAR_TOKEN', vaultKey: 'token']]
         ]]) {
             // Use the SonarQube environment and retrieve the scanner installation
-            withSonarQubeEnv('SonarQubeLocal') { // Ensure the correct SonarQube server name
+            withSonarQubeEnv('SonarServer') { // Ensure the correct SonarQube server name
                 script {
-                    // Log the current working directory
-                    echo "Workspace directory: ${pwd()}"
-                    sh 'dir' // On Windows, you can use `dir` to check the current folder content
-
-                    // Dynamically retrieve the SonarQube Scanner installation
+                    // Dynamically retrieve the SonarQube Scanner installation within a script block
                     def scannerHome = tool name: 'SonarServer', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
                     // Use SonarQube Scanner, passing the token securely
                     bat """
-                        ${scannerHome}\\bin\\sonar-scanner.bat ^
-                        -Dsonar.host.url=http://localhost:9000 ^
-                        -Dsonar.login=%SONAR_TOKEN% ^
-                        -Dsonar.projectKey=your_project_key ^
-                        -Dsonar.projectName=YourProjectName ^
-                        -Dsonar.projectVersion=1.0 ^
-                        -Dsonar.sources="C:/ProgramData/Jenkins/.jenkins/workspace/Declarative pipeline/MWA with Vault project/src"
+                        ${scannerHome}\\bin\\sonar-scanner.bat \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=%SONAR_TOKEN% \
+                        -Dsonar.projectKey=MWA-with-Vault \
+                        -Dsonar.projectName='MWA with Vault' \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources="MWA with Vault project/src"
                     """
                 }
             }
