@@ -18,7 +18,7 @@ pipeline {
             }
         }
         
-       stage('SonarQube analysis') {
+       stage('3. SonarQube analysis') {
     steps {
         // Retrieve the SonarQube token from Vault
         withVault(configuration: [
@@ -88,14 +88,14 @@ pipeline {
         }
         */
         
-        stage('8. APM') {
-            steps {
-                echo 'Monitoring and observation and alerting'
-                echo 'Application performance Monitoring in progress'
-            }
-        }
+        // stage('8. APM') {
+        //     steps {
+        //         echo 'Monitoring and observation and alerting'
+        //         echo 'Application performance Monitoring in progress'
+        //     }
+        // }
         
-        stage('9. Email Notification') {
+        stage('4. Email Notification') {
             steps {
                 emailext body: '''Hi Teams,
 
