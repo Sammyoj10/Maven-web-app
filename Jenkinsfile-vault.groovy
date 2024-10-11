@@ -18,13 +18,30 @@ pipeline {
             }
         }
         
-        stage('3. Code Quality') {
+        stages {
+        stage('SonarQube analysis') {
             steps {
-                // Running SonarQube analysis
-                bat "${env.MAVEN_HOME}\\bin\\mvn sonar:sonar"
-                // Ensure SonarQube server details are configured in the pom.xml
+                // Retrieve the SonarQube token from Vault
+                withVault(configuration: [
+                    vaultCredentialId: 'NewVaultTCred', 
+                    vaultUrl: 'http://13.60.192.49:8200'
+                ], vaultSecrets: [[
+                    path: 'secret/sonar', 
+                    secretValues: [[envVar: 'SONAR_TOKEN', vaultKey: 'token']]
+                ]]) {
+                    // Define the SonarQube environment and run the analysis
+                    withSonarQubeEnv('My SonarQube Server') {
+                        // Use SonarQube Scanner, passing the token securely
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.host.url=http://localhost:9000 \
+                            -Dsonar.login=${SONAR_TOKEN}
+                        """
+                    }
+                }
             }
         }
+    }
         
 //         stage('Upload Artifacts') {
 //     steps {
