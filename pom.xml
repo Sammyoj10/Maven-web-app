@@ -19,6 +19,9 @@
 		<jdk.version>17</jdk.version>
 		<spring.version>5.3.30</spring.version>
 		<junit.version>4.13.2</junit.version>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.organization>training10</sonar.organization>
+        <sonar.projectKey>training10_training4ojay</sonar.projectKey>
 		<log4j.version>2.20.0</log4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -92,13 +95,13 @@
 	<distributionManagement>
 	    <repository>
 	      <id>nexus</id>
-	      <name>OjayTech Releases Nexus Repository</name>
-	      <url>http://localhost:8081/repository/OjayTechRepo/</url>
+	      <name>TrainingRepo-Release</name>
+	      <url>http://localhost:8081/repository/TrainingRepo-Release/</url>
 	    </repository>
 	    <snapshotRepository>
 	      <id>nexus</id>
-	      <name>OjayTech Snapshot Nexus Repository</name>
-	      <url>http://localhost:8081/repository/OjayTechSnapshot/</url>
+	      <name>TrainingRepo-Snapshop</name>
+	      <url>http://localhost:8081/repository/TrainingRepo-Snapshop/</url>
 	    </snapshotRepository>
 	</distributionManagement>
 	
@@ -106,6 +109,18 @@
 		<finalName>ojaytech-app</finalName>
 		
 		<plugins>
+            <!-- SonarQube Maven Plugin -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version> <!-- Specified version -->
+            </plugin>
+            <!-- SonarQube Maven Plugin -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version> <!-- Specified version -->
+            </plugin>
 			<!-- Compiler Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
