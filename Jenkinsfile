@@ -29,7 +29,7 @@ node
             -Dsonar.projectKey=<your_project_key> ^
             -Dsonar.organization=<your_organisation_name> ^
             -Dsonar.host.url=https://sonarcloud.io ^
-            -Dsonar.login=<your_sonar_token>
+            -Dsonar.login=046a21d6ab2d1df716da73174a4682c53cf9c9dc
         """
     }
 }
