@@ -26,8 +26,8 @@ node
     withSonarQubeEnv('SonarCloud') { // Replace 'SonarCloud' with the ID of your configured SonarQube server in Jenkins
         bat """
             ${mavenHome}\\bin\\mvn sonar:sonar ^
-            -Dsonar.projectKey=<your_project_key> ^
-            -Dsonar.organization=<your_organisation_name> ^
+            -Dsonar.projectKey=training10 ^
+            -Dsonar.organization=Training10 ^
             -Dsonar.host.url=https://sonarcloud.io ^
             -Dsonar.login=046a21d6ab2d1df716da73174a4682c53cf9c9dc
         """
