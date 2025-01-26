@@ -1,7 +1,7 @@
 node
  {
   
-  def mavenHome = tool name: "maven3.9.6"
+  def mavenHome = tool name: "maven.home"
   
       echo "GitHub BranhName ${env.BRANCH_NAME}"
       echo "Jenkins Job Number ${env.BUILD_NUMBER}"
@@ -11,24 +11,30 @@ node
       echo "Jenkins URL ${env.JENKINS_URL}"
       echo "JOB Name ${env.JOB_NAME}"
   
-   properties([[$class: 'JiraProjectProperty'], buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '2', daysToKeepStr: '', numToKeepStr: '2')), pipelineTriggers([pollSCM('* * * * *')])])
   
   stage("CheckOutCodeGit")
   {
-   git branch: 'development', credentialsId: '65fb834f-a83b-4fe7-8e11-686245c47a65', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+   git branch: 'task/mytraining', url: 'https://github.com/Sammyoj10/Maven-web-app.git'
  }
  
  stage("Build")
  {
- sh "${mavenHome}/bin/mvn clean package"
+ bat "${mavenHome}/bin/mvn clean package"
  }
  
-  /*
- stage("ExecuteSonarQubeReport")
- {
- sh "${mavenHome}/bin/mvn sonar:sonar"
- }
- 
+ stage("ExecuteSonarQubeReport") {
+    withSonarQubeEnv('SonarCloud') { // Replace 'SonarCloud' with the ID of your configured SonarQube server in Jenkins
+        bat """
+            ${mavenHome}\\bin\\mvn sonar:sonar ^
+            -Dsonar.projectKey=<your_project_key> ^
+            -Dsonar.organization=<your_organisation_name> ^
+            -Dsonar.host.url=https://sonarcloud.io ^
+            -Dsonar.login=<your_sonar_token>
+        """
+    }
+}
+
+/* 
  stage("UploadArtifactsintoNexus")
  {
  sh "${mavenHome}/bin/mvn deploy"

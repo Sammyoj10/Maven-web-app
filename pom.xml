@@ -21,9 +21,9 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://3.70.245.199:9000/</sonar.host.url>
-		<sonar.login>admin</sonar.login>
-		<sonar.password>admin</sonar.password>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.organization>sammyoj10</sonar.organization>
+        <sonar.projectKey>sammyoj10_ojay-tech</sonar.projectKey>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -101,6 +101,15 @@
 	<build>
 		<finalName>maven-web-app</finalName>
 		
+		<plugins>
+            <!-- SonarQube Maven Plugin -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version> <!-- Specified version -->
+            </plugin>
+        </plugins>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
