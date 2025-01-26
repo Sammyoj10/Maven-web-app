@@ -26,11 +26,9 @@
         <sonar.projectKey>sammyoj10_ojay-tech</sonar.projectKey>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 	</properties>
 
 	<dependencies>
-		
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -60,7 +58,6 @@
 		</dependency>
 
 		<!-- compile dependencies -->
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -108,9 +105,8 @@
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.11.0.3922</version> <!-- Specified version -->
             </plugin>
-        </plugins>
-
-		<plugins>
+            
+			<!-- maven-compiler-plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -121,6 +117,7 @@
 				</configuration>
 			</plugin>
 
+			<!-- jetty-maven-plugin -->
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -133,6 +130,7 @@
 				</configuration>
 			</plugin>
 
+			<!-- maven-eclipse-plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -140,13 +138,4 @@
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
-					<wtpversion>2.0</wtpversion>
-					<wtpContextName>maven-web-application</wtpContextName>
-				</configuration>
-			</plugin>
-			
-</plugins>
-	</build>
-	
-	
-</project>
+					<wtpversion>2.0</wtp>
